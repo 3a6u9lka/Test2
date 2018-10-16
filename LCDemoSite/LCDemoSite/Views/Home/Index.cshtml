@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <input type="button" value="Get one" onclick="find();" />
+    <p id="product" />
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script>
+    var uri = 'http://localhost:49686/api/People/GetInfo';
+
+    function find() {
+        $.getJSON(uri)
+            .done(function (data) {
+                $('#product').text('Done');
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                $('#product').text('Error: ' + err);
+            });
+    }
+</script>
