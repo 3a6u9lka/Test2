@@ -13,12 +13,12 @@ namespace Poem.Controllers
     public class GetPoemController : ApiController
     {
         [HttpGet]
-        public HttpResponseMessage Get(string key)
+        public HttpResponseMessage Get(string id)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(id))
                 return new HttpResponseMessage(HttpStatusCode.OK);
 
-            var poem = GetData(key);
+            var poem = GetData(id);
 
             if (poem == null)
                 return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
@@ -31,8 +31,8 @@ namespace Poem.Controllers
 
         private PoemDto GetData(string key)
         {
-                var provider = new RandomPoemDataProvider();
-                var jsonData = provider.GetData().Result;
+            var provider = new RandomPoemDataProvider();
+            var jsonData = provider.GetData().Result;
 
             if (string.IsNullOrEmpty(jsonData?.Content))
                 return null;

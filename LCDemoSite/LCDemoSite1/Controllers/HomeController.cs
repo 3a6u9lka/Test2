@@ -34,7 +34,7 @@ namespace LCDemoSite1.Controllers
         {
             using (var client = new HttpClient())
             {
-                var result = client.GetAsync("http://localhost:49686/api/").Result;
+                var result =client.GetAsync("http://localhost:49686/api/").Result;
                 if (result.IsSuccessStatusCode)
                 {
 

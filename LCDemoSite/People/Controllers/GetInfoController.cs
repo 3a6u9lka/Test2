@@ -56,7 +56,7 @@ namespace People.Controllers
         {
             using (var client = new HttpClient())
             {
-                var result = client.GetAsync("http://localhost:50252/api/GetPoem" + key).Result;
+                var result = client.GetAsync("http://localhost:50252/api/GetPoem/" +key).Result;
                 if (result.IsSuccessStatusCode)
                 {
 
