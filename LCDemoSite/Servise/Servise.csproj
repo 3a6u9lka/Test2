@@ -66,6 +66,9 @@
     <Compile Include="Dto\JsonPeopleDto.cs" />
     <Compile Include="Dto\PeopleDto.cs" />
     <Compile Include="Dto\PoemDto.cs" />
+    <Compile Include="FuzzyString\JaroDistance.cs" />
+    <Compile Include="FuzzyString\JaroWinklerDistance.cs" />
+    <Compile Include="FuzzyString\LevenshteinDistance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

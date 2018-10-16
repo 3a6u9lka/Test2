@@ -1,8 +1,12 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Servise.DataProviders;
 using Servise.Dto;
+using Servise.FuzzyString;
 
 namespace Poem.Controllers
 {
@@ -33,13 +37,25 @@ namespace Poem.Controllers
             if (string.IsNullOrEmpty(jsonData?.Content))
                 return null;
 
+            var dics = 0d;
+            var lastStrin = jsonData.Content
+                .Split('.', '?', '!')
+                .Aggregate((cur, next) =>
+                {
+                    dics += cur.JaroWinklerDistance(next);
+                    cur = next;
+                    return cur;
+                });
+
             return new PoemDto
             {
                 UserKey = key,
                 Content = jsonData.Content,
                 Title = jsonData.Title,
+                Distance = dics,
             };
         }
+
 
         private void SavePoem(PoemDto poem)
         {
