@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace People
+namespace Poem
 {
     public static class WebApiConfig
     {
@@ -17,8 +17,7 @@ namespace People
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { controller = "GetInfo", id = RouteParameter.Optional }
-
+                defaults: new { controller ="GetPoem", id = RouteParameter.Optional }
             );
         }
     }
