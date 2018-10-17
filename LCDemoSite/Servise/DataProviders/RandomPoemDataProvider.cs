@@ -7,7 +7,7 @@ using Servise.Dto;
 
 namespace Servise.DataProviders
 {
-    public class RandomPoemDataProvider : JsonWebApiProvider<JsonPoemDto>
+    public class RandomPoemDataProvider : JsonWebApiProvider<List<JsonPoemDto>>
     {
         public RandomPoemDataProvider() : base("https://www.poemist.com/api/v1/randompoems")
         {

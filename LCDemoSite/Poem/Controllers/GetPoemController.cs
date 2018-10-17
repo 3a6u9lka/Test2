@@ -18,48 +18,48 @@ namespace Poem.Controllers
             if (string.IsNullOrEmpty(id))
                 return new HttpResponseMessage(HttpStatusCode.OK);
 
-            var poem = GetData(id);
+            var poems = GetData(id);
 
-            if (poem == null)
-                return new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-
-            SavePoem(poem);
+            SavePoem(poems);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
 
         }
 
-        private PoemDto GetData(string key)
+        private IEnumerable<PoemDto> GetData(string key)
         {
             var provider = new RandomPoemDataProvider();
             var jsonData = provider.GetData().Result;
 
-            if (string.IsNullOrEmpty(jsonData?.Content))
-                return null;
-
-            var dics = 0d;
-            var lastStrin = jsonData.Content
-                .Split('.', '?', '!')
-                .Aggregate((cur, next) =>
-                {
-                    dics += cur.JaroWinklerDistance(next);
-                    cur = next;
-                    return cur;
-                });
-
-            return new PoemDto
+            foreach (var jsonPoemDto in jsonData)
             {
-                UserKey = key,
-                Content = jsonData.Content,
-                Title = jsonData.Title,
-                Distance = dics,
-            };
+                if (string.IsNullOrEmpty(jsonPoemDto?.Content))
+                    continue;
+
+                var dics = 0d;
+                var lastStrin = jsonPoemDto.Content
+                    .Split('.', '?', '!')
+                    .Aggregate((cur, next) =>
+                    {
+                        dics += cur.JaroWinklerDistance(next);
+                        cur = next;
+                        return cur;
+                    });
+
+                yield return new PoemDto
+                {
+                    UserKey = key,
+                    Content = jsonPoemDto.Content,
+                    Title = jsonPoemDto.Title,
+                    Distance = dics,
+                };
+            }
         }
 
 
-        private void SavePoem(PoemDto poem)
+        private void SavePoem(IEnumerable<PoemDto> poems)
         {
-            //todo : Save with DAtaBase
+            //todo : Save with DataBase
         }
     }
 }

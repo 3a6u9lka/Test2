@@ -19,11 +19,11 @@ namespace Servise.DataProviders
 
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(Url);
+                var response = client.GetAsync(Url).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var reader = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<T>(reader);
+                    data = JsonConvert.DeserializeObject<T>(reader.Normalize());
                 }
             }
 
