@@ -56,10 +56,15 @@ namespace Poem.Controllers
             }
         }
 
-
         private void SavePoem(IEnumerable<PoemDto> poems)
         {
-            //todo : Save with DataBase
+            using (var dbManager = new DataBaseManager())
+            {
+                foreach (var poemDto in poems)
+                {
+                    dbManager.SetPeom(poemDto);
+                }
+            }
         }
     }
 }

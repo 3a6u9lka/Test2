@@ -48,8 +48,13 @@ namespace People.Controllers
 
         private string SavePeople(PeopleDto people)
         {
-            //todo : Save with DAtaBase
-            return "1";
+            string result = null;
+            using (var dbManager = new DataBaseManager())
+            {
+                result = dbManager.SetPeople(people);
+            }
+
+            return result;
         }
 
         private void AddPoem(string key)
